@@ -134,8 +134,10 @@ class LTI_Sitemap {
 		$this->loader->add_action( 'admin_menu', $this->admin, 'admin_menu' );
 		$this->loader->add_filter( 'plugin_action_links', $this->admin, 'plugin_action_links', 10, 2 );
 		$this->loader->add_filter( 'plugin_row_meta', $this->admin, 'plugin_row_meta', 10, 2 );
-		$this->loader->add_action( 'add_meta_boxes', $this->admin, 'add_meta_boxes' );
-		$this->loader->add_action( 'save_post', $this->admin, 'save_post', 10, 3 );
+		if ( $this->settings->get( 'content_news_support' ) == true ) {
+			$this->loader->add_action( 'add_meta_boxes', $this->admin, 'add_meta_boxes' );
+			$this->loader->add_action( 'save_post', $this->admin, 'save_post', 10, 3 );
+		}
 
 		if ( isset( $GLOBALS['pagenow'] ) ) {
 			if ( $GLOBALS['pagenow'] === 'post.php' || LTI_Sitemap::$is_plugin_page || $GLOBALS['pagenow'] === 'post-new.php' ) {
