@@ -6,7 +6,7 @@
  * @wordpress-plugin
  * Plugin Name:       LTI Sitemap
  * Description:       Hassle free XML Sitemaps: pick your featured content, let search engines do the rest!
- * Version:           0.5.0
+ * Version:           0.5.1
  * Author:            Linguistic Team International
  * Author URI:        http://dev.linguisticteam.org/
  * License:           GPL-2.0+
@@ -42,7 +42,7 @@ if ( ! function_exists( 'add_filter' ) ) {
 $plugin_dir_path = plugin_dir_path( __FILE__ );
 define( 'LTI_SITEMAP_PLUGIN_DIR', $plugin_dir_path );
 define( 'LTI_SITEMAP_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
-define( 'LTI_SITEMAP_VERSION', '0.5.0' );
+define( 'LTI_SITEMAP_VERSION', '0.5.1' );
 define( 'LTI_SITEMAP_NAME', 'lti-sitemap' );
 
 require_once $plugin_dir_path. 'vendor/autoload.php';
@@ -50,5 +50,6 @@ require_once $plugin_dir_path. 'vendor/autoload.php';
 register_activation_hook( __FILE__, array( 'Lti\Sitemap\LTI_Sitemap', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'Lti\Sitemap\LTI_Sitemap', 'deactivate' ) );
 
+add_filter( 'rewrite_rules_array', 'Lti\Sitemap\Activator::rewrite_rules_array', 1, 1 );
 $plugin = LTI_Sitemap::get_instance();
 $plugin->run();
